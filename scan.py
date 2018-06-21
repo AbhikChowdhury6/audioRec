@@ -1,6 +1,7 @@
 
 
 import time
+import os
 millis = int(round(time.time() * 1000))
 
 starttime=time.time()
@@ -27,3 +28,12 @@ imported_sensor_schemas = [["MPU60500",i2c, 0x68, 64, [ACCELL_Y, [REG_N, REG_N+1
 #create sensor set folder
 #iterate over sensing units and make folders for each, then look it up in schemas and then make folders for every data stream
 #start collecting data
+
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
+
+
+starttime=time.time()
+while True:
+  time.sleep(0.00390625 - ((time.time() - starttime) % 0.00390625))
