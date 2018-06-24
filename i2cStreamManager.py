@@ -25,13 +25,16 @@ imported_sensing_units = [["MPU60500", "AbhiksBeautifulBreathingSensor","MAX3010
 #sensor manufacturers make libraries
 #import all of the sensors you will need
 #extanciate and define them based on the documentation and your desiered configuration [descriptive name, HZ, addressing bits, red_Led_current]
-
+#check and run any nessicarry setup functions (seeting up files, calibrating, etc.)
+#loop REFRESH_RATE number of times a second
+#if its time for a sensor to be updated then read the data and append it to the relevant files
+#if it misses an update then create a new files with the new starting timestamp
 
 
 #library specifications
 
 #variables:
-
+# string sensor name
 # string given name
 # float refresh rate #given a default value #default all datastreams but can override individual datastreams
 # arbitrary number of config variables (ex: red_Led_current, address_bit)
@@ -43,16 +46,10 @@ imported_sensing_units = [["MPU60500", "AbhiksBeautifulBreathingSensor","MAX3010
 #functions:
 
 # remove datastream ##does not include the removed datastream when the read data function is called and removes the stream from the active streams list
-# read data    #returns an arry of sensor readings that lines up with the fields in the active datastreams
+# read data    # takes in an SMbus and returns an arry of sensor readings that lines up with the fields in the active datastreams
 # an arbitrary number of setup functions (ex. calabrate)
 
 
-
-
-
-#reference variables and debug:
-#device address
-#registers for data
 
 
 #["sensor identifier", refresh reate in HZ,["datastream", "datastream", "datastream"]
@@ -96,7 +93,7 @@ imported_sensor_schemas = [["MPU60500",i2c, 0x68, 64, [ACCELL_Y, [REG_N, REG_N+1
 #create person floder
 #create sensor set folder
 #iterate over sensing units and make folders for each, then look it up in schemas and then make folders for every data stream
-#start collecting data
+#start collecting data titiling the files day-month-year-24:HR:MIN:SEC.millis
 
 if not os.path.exists(directory):
     os.makedirs(directory)
