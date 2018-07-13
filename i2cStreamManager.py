@@ -1,7 +1,11 @@
 
 
 import time
+import smbus
 import os
+
+bus = smbus.SMBus(1) # or bus = smbus.SMBus(1) for Revision 2 boards
+
 millis = int(round(time.time() * 1000))
 
 starttime=time.time()
@@ -13,10 +17,10 @@ entety_name = "Abhik"
 entity_type = "Human"
 entity_uuid = "31415926"
 
-sensor_set = "AbhiksSmartPostureCorrectorTM"#AbhiksCasualLeftHandGlove
+sensor_set = "AbhiksSmartPostureCorrectorTM"#AbhiksHandyHat
 
 #the manufacturer provides documentation regarding the position, purpose and function of each of sensors
-imported_sensing_units = [["MPU60500", "AbhiksBeautifulBreathingSensor","MAX30100",....]]
+imported_sensing_units = [["MPU6050", "MPU9250", "AbhiksBeautifulBreathingSensor","AbhiksExcitingECG", "AbhiksVoraciousVoltageSensorAddr0", "AbhiksVoraciousVoltageSensorAddr1"]]
 
 
 
@@ -54,11 +58,16 @@ imported_sensing_units = [["MPU60500", "AbhiksBeautifulBreathingSensor","MAX3010
 
 #["sensor identifier", refresh reate in HZ,["datastream", "datastream", "datastream"]
 
+define an MPU6050 object
+define an MPU9250 object
+define a Breath object
+define an ECG object
+define a GSR object
 
 #["sensor identifier", refresh reate in HZ, prtocol, [protocol specific addressing]]
 #i2c protocol specific addressing
 #[device address, ["datastream name", "encoding format" [reg_1 ,reg_2,.....]], ["datastream name", "encoding format" [reg_1 ,reg_2,.....]],.....]
-imported_sensor_schemas = [["MPU60500",i2c, 0x68, 64, [ACCELL_Y, [REG_N, REG_N+1],[GYRO_Z, [REG_P, REG_P+1]],....]],
+imported_sensor_schemas = [["MPU6050",i2c, 0x68, 64, [ACCELL_Y, [REG_N, REG_N+1],[GYRO_Z, [REG_P, REG_P+1]],....]],
                             ["AbhiksBeautifulBreathingSensor", i2c, 0x11, 128, [VAL, [RED_N, REG_N+1]]],...],
                             ["MPU60501",...],
                             ["ExcitingECG"],

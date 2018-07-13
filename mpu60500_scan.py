@@ -1,14 +1,14 @@
 #!/usr/bin/python
 
-import smbus
-import math
 
-# Power management registers
-power_mgmt_1 = 0x6b
-power_mgmt_2 = 0x6c
+class MPU6050:
+    def __init__(self, bus):
+        self.power_mgmt_1 = 0x6b
+        self.power_mgmt_2 = 0x6c
+
 
 def read_byte(adr):
-    return bus.read_byte_data(address, adr)
+    return bus.read_byte_data(address)
 
 def read_word(adr):
     high = bus.read_byte_data(address, adr)
@@ -34,7 +34,6 @@ def get_x_rotation(x,y,z):
     radians = math.atan2(y, dist(x,z))
     return math.degrees(radians)
 
-bus = smbus.SMBus(0) # or bus = smbus.SMBus(1) for Revision 2 boards
 address = 0x68       # This is the address value read via the i2cdetect command
 
 # Now wake the 6050 up as it starts in sleep mode
